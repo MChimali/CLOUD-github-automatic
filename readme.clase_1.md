@@ -10,7 +10,7 @@ create server folder para servir esos archivos estáticos.
 - a continuación creamos un entorno de nodeJS haciendo npm init -y.
 - instalamos express > npm install express --save
 
-Para poder crear un servidor creamos un fichero index.js
+Para poder crear un seridor creamos un fichero index.js
 
 ```JS
               const express = require('express');
