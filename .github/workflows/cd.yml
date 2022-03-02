@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Use SSH key
         run: |
-          mkdir ~/.ssh/
+          mkdir -p ~/.ssh/
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
           sudo chmod 600 ~/.ssh/id_rsa
       - name: Git config
@@ -28,7 +28,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Deployment
-        run: npm run deploy -- -r git@github.com:MChimali/CLOUD-github-automatic.git
+        run: npm run deploy
 
 # Además tenemos que usar una clave SSH para identificarnos. Con esto generamos un par de claves, una pública y otra privada. Para crearlas usamos el terminal de Bash. La clave pública la vamos a añadir a nuestro repositorio.
 # Con este comando ssh-keygen -m PEM -t rsa -C "cd-user@myapp.com" vamos a generar una clave pública y otra privada. El email es para indicarle el usuario al que le vamos a dar permiso. Luego tendremos que usar el mismo email para logarnos luego.
