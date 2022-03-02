@@ -4,13 +4,12 @@ on:
   push:
     branches:
       - master
-# In the first step what we do is to create a virtual machine that is running in Ubuntu that will clonate everything that exist in this repository. It is like create a local repository of that repository.
-# In that machine now we have the files but we we do not have node modules, so we have to install everything. Thats why we do npm install and then npm run build
+
 jobs:
   cd:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone repository
+      - name: Checkout repository
         uses: actions/checkout@v2
       - name: Install
         uses: npm install
