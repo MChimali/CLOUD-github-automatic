@@ -30,7 +30,7 @@ Vamos a realizar el mismo ejemplo que hicimos ayer en gitHub pero automatizándo
 
 
 
-Lo siguiente será arrancado por github cuando hagamos un push a master. Me levanta una máquina virtual con mi SO (en este caso Ubuntu) que va a simular ser mi máquina de trabajo. Los steps van a ser:
+Lo siguiente ser arrancado por github cuando hagamos un push a master. Me levanta una máquina virtual con mi SO (en este caso Ubuntu) que va a simular ser mi máquina de trabajo. Los steps van a ser:
 1. clonar el repositorio.
 2. Cuando clonas este repositorio, todo se instala sin node_modules, así que tenemos que hacer npm install.
 3. luego hacemos npm run build para generar la carpeta dist.
