@@ -28,7 +28,6 @@ Vamos a realizar el mismo ejemplo que hicimos ayer en gitHub pero automatizándo
 9. Creamos nueva carpeta en carpeta raiz que se llame ".github". Dentro de esta carpeta vamos a crear otra carpeta que se llame "workflows". En esta carpeta vamos a tener todos los ficheros que queremos que ejecute github por nosotros cuando ocurra un evento en concreto.
 10. Dentro de workflows vamos a crear un fichero con el nombre que queramos. Los ficheros tienen extensión ".yml". Es recomendable instalarse YAML (min 34.20 para ver foto).
 
-En steps podemos poner acciones predefinidias de github. Una muy típica es "checkout". Esta acción nos permite clonarnos el repositoroi actual. Cuando nosotros ejecutamos un flujo, lo que github nos proporciona es una máquina virtual con cosas instaladas, node por ejemplo.
 
 
 Lo siguiente será arrancado por github cuando hagamos un push a master. Me levanta una máquina virtual con mi SO (en este caso Ubuntu) que va a simular ser mi máquina de trabajo. Los steps van a ser:
