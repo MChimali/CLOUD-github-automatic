@@ -5,15 +5,39 @@ on:
     branches:
       - master
 
+# In the first step what we do is to create a virtual machine that is running in Ubuntu that will clonate everything that exist in this repository. It is like create a local repository of that repository.
+# In that machine now we have the files but we we do not have node modules, so we have to install everything. Thats why we do npm install and then npm run build. After this we make the deployment and within this script is the order to create the gh-pages.
+
 jobs:
   cd:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Use SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{secrets.SSH_PUBLIC_KEY}}" > ~/.ssh/id_rsa
+          sudo chmod 600
+      - name: Git config
+        run: |
+          git config --global user.email "cd-user@myapp.com"
+          git config --global user.name "cd-user"
       - name: Install
         run: npm install
       - name: Build
         run: npm run build
       - name: Deployment
-        run: npm run deploy
+        run: npm run deploy -- -r git@github.com:MChimali/CLOUD-github-automatic.git
+
+# Además tenemos que usar una clave SSH para identificarnos. Con esto generamos un par de claves, una pública y otra privada. Para crearlas usamos el terminal de Bash. La clave pública la vamos a añadir a nuestro repositorio.
+# Con este comando ssh-keygen -m PEM -t rsa -C "cd-user@myapp.com" vamos a generar una clave pública y otra privada. El email es para indicarle el usuario al que le vamos a dar permiso. Luego tendremos que usar el mismo email para logarnos luego.
+# Cuando nos pida la ruta podemos indicarle únicamente ./id_rsa
+# le damos intro + intro para hacerlo sin contraseña
+# Cogemos el contenido de la clave pública y lo pegamos en el repositorio settings/deploy Keys > click en deploy key, añadimos título x ej "SSH_PUBLIC_KEY", pegamos la public key y hacemos click en "allow write access"
+# nos pedirá la contraseña y ya tendremos en el repositorio la clave pública. ahora podemos borrar de nuestro repositorio el archivo de la public.Key
+# Cualquier agente que quiera tener acceso al repositorio necesitará tener la clave privada. Esta clave la vamos a usar en nuestro flujo de gitHub actions. Pero no podemos pegarla en nuestro cd.yml, porque lo vería todo el mundo ya que este fichero estará en nuestro repositorio. Así que la clave privada irá en settings/secrets/actios new repository secret. El título tiene que ser el mismo que el que luego vamos a poner en github actions. Este valor no puedo verlo, solo puedo eliminarlo o actualizarlo.
+# Ahora tenemos que crear en nuestra máquina virtual una carpeta para alojar la clave SSH. Para crear esta carpeta usamos "mkdir -p". el directorio será "~/.ssh/" que es el directorio donde ubuntu va a ir a buscar por defecto la clave SSH.
+# Ahora tengo que añadir el fichero id_rsa con la clave privada. Este acceso se hace con  ${{secrets.SSH_PUBLIC_KEY}}
+# También necesitamos identificarnos con el email de antes.
+# Además cuando hagamos el deploy vamos a indicarle también la clave SSH
