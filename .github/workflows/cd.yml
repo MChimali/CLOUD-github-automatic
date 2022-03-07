@@ -38,6 +38,6 @@ jobs:
 # nos pedirá la contraseña y ya tendremos en el repositorio la clave pública. ahora podemos borrar de nuestro repositorio el archivo de la public.Key
 # Cualquier agente que quiera tener acceso al repositorio necesitará tener la clave privada. Esta clave la vamos a usar en nuestro flujo de gitHub actions. Pero no podemos pegarla en nuestro cd.yml, porque lo vería todo el mundo ya que este fichero estará en nuestro repositorio. Así que la clave privada irá en settings/secrets/actios new repository secret. El título tiene que ser el mismo que el que luego vamos a poner en github actions. Este valor no puedo verlo, solo puedo eliminarlo o actualizarlo.
 # Ahora tenemos que crear en nuestra máquina virtual una carpeta para alojar la clave SSH. Para crear esta carpeta usamos "mkdir -p". el directorio será "~/.ssh/" que es el directorio donde ubuntu va a ir a buscar por defecto la clave SSH.
-# Ahora tengo que añadir el fichero id_rsa con la clave privada. Este acceso se hace con  ${{secrets.SSH_PUBLIC_KEY}}
+# Ahora tengo que añadir el fichero id_rsa con la clave privada. Este acceso se hace con  ${{secrets.SSH_PUBLIC_KEY}}. El fichero en el que se trabaja, tiene la carpeta GIT de este repositorio. Es decir, en esa máquina local, digamos que se tiene acceso a esos secretos. De esta manera cuando hacemos el git push, cuando comienza el flujo del workflow, lo hace pasándole el valor del secreto.
 # También necesitamos identificarnos con el email de antes.
-# Además cuando hagamos el deploy vamos a indicarle también la clave SSH
+# Además, como nos estamos identificando con la clave SSH, en el deploy vamos a tener que indicarle ésta clave.
